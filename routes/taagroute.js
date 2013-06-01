@@ -48,4 +48,8 @@ TaagRoute.prototype = {
         res.end();
       });	
 	},
+
+  genTaag: function(reg, res){
+    res.render('gentaag', { title: 'Create a Taag' });
+  }
 }
