@@ -26,27 +26,31 @@ TaagRoute.prototype = {
       res.end();
 	},
 
-	addTaag: function(req, res){
-		var fullBody = '';
+	saveTaag: function(req, res){
+    var fullBody = '';
+     
+     req.on('data', function(chunk) {
+       fullBody += chunk.toString();
+     });
       
-      req.on('data', function(chunk) {
-        fullBody += chunk.toString();
-      });
-      
-      req.on('end', function() {
-        var json = JSON.parse(fullBody);
+     req.on('end', function() {
+         var json = JSON.parse(fullBody);
+         var isNew = false;
+         if(json.id == ''){isNew = true;}
 
-        newTaag = new taag();
-        newTaag.code = json.code;
+         var newTaag = new Taag();
+         newTaag._id = json.id;
+         newTaag.Type =json.Type;
+         newTaag.Code = json.Code;
+         newTaag.Title = json.Title;
+         newTaag.Description = json.Description; 
 
-        newLocation.save(function savedTaag(err){
-          if(err) {
-            throw err;
-          }
+         newTaag.findByIdAndUpdate(newTaag._id,
+                                  newTaag,  
+                                  {upsert:isNew},
+          function(err){
+            res.redirect('/editTaag/' + newTaag.Code);
         });
-        
-        res.writeHead(200, "OK", {'Content-Type': 'text/html'});
-        res.end();
       });	
 	},
 

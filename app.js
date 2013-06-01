@@ -35,6 +35,7 @@ if ('development' == app.get('env')) {
 app.get('/:code([A-Za-z\\d]+)', taagRoute.showTaag.bind(taagRoute));
 app.get('/taag/edittaag', taagRoute.editTaag.bind(taagRoute));
 app.get('/', routes.index);
+app.post('/saveTaag',taagRoute.saveTaag.bind(taagRoute));
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

@@ -9,4 +9,5 @@ var TaagSchema = new Schema({
 	//, Issues : [mongoose.model('IssueModel')]
 });
 
-module.exports = mongoose.model('TaagModel', TaagSchema);
+var Taag = mongoose.model('Taag',TaagSchema);
+//module.exports = mongoose.model('TaagModel', TaagSchema);
