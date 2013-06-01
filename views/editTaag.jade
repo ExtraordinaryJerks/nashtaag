@@ -12,14 +12,22 @@ block scripts
                 text: 'http://www.nashtaag.com/qrcode'});
 
             $("#btnsave").click(function(){
-                var json = JSON.stringify({ "type":$("#type").val(), "code":$("#code").val(), "title":$("#title").val(), "description":$("#description").val(), "id":$("#id").val() });
+                var typeparam = $("#type").val();
+                var codeparam = $("#code").val();
+                var titleparam = $("#title").val();
+                var description = $("#description").val();
+                var id = $("#id").val();
+                var json = JSON.stringify({ type: typeparam, code: codeparam, title:titleparam, description:description, id: id});
                 $.ajax({
                     type: "POST",
-                    url: "/saveTaag",
+                    url: "/taag/saveTaag",
                     data: json,
-                    success: function() { alert('success'); },
-                    fail: function() { alert('fail'); },
-                    dataType: "json"
+                    success: function() { 
+                        alert('success'); 
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        alert('Error: ' + errorThrown + ", Status: " + textStatus);
+                    }
                 }).done(function() {
                     alert("Done");
                 });
