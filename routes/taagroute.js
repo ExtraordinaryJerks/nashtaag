@@ -1,6 +1,6 @@
 var taag = require('../models/taag.js');
 
-module.exports = TaskList;
+module.exports = TaagRoute;
 
 function TaagRoute(connection){
 	//mongoose.connect(connection);
@@ -15,10 +15,14 @@ TaagRoute.prototype = {
 	},
 
 	showTaag: function(req, res){
-		task.find({itemCompleted: false}, function foundTaags(err, item) 
-    	{
-      		res.render('taag',{title: 'Single Taag' , taag: item})
-    	});
+    console.log(req.params.code);
+		// taag.find({Code:req.params.code},function(err, item) 
+  //   	{
+  //         console.log(item);
+  //     		//res.render('taag',{title: 'Single Taag' , taag: item})
+  //   	});
+      res.write(req.params.code);
+      res.end();
 	},
 
 	addTaag: function(req, res){

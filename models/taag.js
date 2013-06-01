@@ -8,4 +8,4 @@ var TaagSchema = new Schema({
 	, Description : String
 });
 
-module.exports = mongoose.model('TaagModel', TaskSchema)
+module.exports = mongoose.model('TaagModel', TaagSchema);
