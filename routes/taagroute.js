@@ -1,4 +1,5 @@
 var taag = require('../models/taag.js');
+var issue = require('../models/issue.js');
 
 module.exports = TaagRoute;
 
