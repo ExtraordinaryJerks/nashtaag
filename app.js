@@ -11,6 +11,11 @@ var express = require('express')
 
 var app = express();
 
+var mongoConnectionString  'mongodb://nashtaag-demo:qYukGKevuazH9QexMwuBWHMD4oFe7NtLAuUQIoEaoyA-@ds045077.mongolab.com:45077/nashtaag-demo';
+
+var TaagRoute = new require('./routes/taagroute');
+var taagRoute = new (mongoConnectionString);
+
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
@@ -29,6 +34,7 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/users', user.list);
+app.get('', taagRoute.);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

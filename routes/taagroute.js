@@ -21,7 +21,7 @@ TaagRoute.prototype = {
     	});
 	},
 
-	addTask: function(req, res){
+	addTaag: function(req, res){
 		var fullBody = '';
       
       req.on('data', function(chunk) {
@@ -34,7 +34,7 @@ TaagRoute.prototype = {
         newTaag = new taag();
         newTaag.code = json.code;
 
-        newLocation.save(function savedLocation(err){
+        newLocation.save(function savedTaag(err){
           if(err) {
             throw err;
           }
