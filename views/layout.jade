@@ -3,15 +3,13 @@ html
     head
         block head
             block title
-                title Program Name
+                title NashTaag
             block meta
                 meta(name='description', content='')
                 meta(name='keywords', content='')
             link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+            link(rel='stylesheet', href='/stylesheets/style.css')
             link(rel='stylesheet', href='/stylesheets/bootstrap-responsive.min.css')
-            | <style>
-            | body { padding-top: 60px; }
-            | </style>
             script(src='//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js')
             script(src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js")
             script(src='/javascripts/bootstrap.js')
@@ -19,5 +17,5 @@ html
     body
         include header
 
-        .container  
+        .container#content-container  
             block content
