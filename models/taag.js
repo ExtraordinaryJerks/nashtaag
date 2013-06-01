@@ -6,6 +6,7 @@ var TaagSchema = new Schema({
 	, Code: String
 	, Title : String
 	, Description : String
+	, Issues : [mongoose.model('IssueModel')]
 });
 
 module.exports = mongoose.model('TaagModel', TaagSchema);
