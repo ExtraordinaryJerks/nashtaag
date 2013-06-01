@@ -50,7 +50,9 @@ TaagRoute.prototype = {
       });	
 	},
 
-  genTaag: function(reg, res){
-    res.render('gentaag', { title: 'Create a Taag' });
+  editTaag: function(reg, res){
+    res.render('editTaag', { title: 'Create/Edit a Taag' });
+    //res.write('test response');
+    //res.end();
   }
 }

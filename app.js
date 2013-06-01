@@ -33,6 +33,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/:code([A-Za-z\\d]+)', taagRoute.showTaag.bind(taagRoute));
+app.get('/taag/edittaag', taagRoute.editTaag.bind(taagRoute));
 app.get('/', routes.index);
 
 http.createServer(app).listen(app.get('port'), function(){

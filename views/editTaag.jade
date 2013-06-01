@@ -1,0 +1,50 @@
+extends layout
+
+block scripts
+    script(src="/javascripts/qrcode.js")
+    script(src="/javascripts/jquery.qrcode.js")
+    script(type="text/javascript")
+        $(document).ready(function(){
+            $("#taagPreview").qrcode({
+                render: 'div',
+                width: 300,
+                height: 300,
+                text: 'http://www.nashtaag.com/qrcode'});
+
+            $("#btnsave").click(function(){
+                $.ajax({
+                    type: "POST",
+                    url: "/saveTaag",
+                    data: { type:$("#type").val(), code:$("#code").val(), title:$("#title").val(), description:$("#description").val(), id:$("#id").val() },
+                    success: function() { alert('success'); },
+                    fail: function() { alert('fail'); },
+                    dataType: "json"
+                }).done(function() {
+                    alert("Done");
+                });
+            });
+        });        
+
+block content
+    h1=title
+    #editForm
+        .editItem
+            label="Type: "
+            select(id='type')
+                option(value=1)="Point of Interest"
+                option(value=2)="Location"
+                option(value=3)="Service"
+        .editItem
+            label="Code: "
+            input(type='text', id='code')
+        .editItem
+            label="Title: "
+            input(type='text', id='title')
+        .editItem
+            label="Decription: "
+            input(type='text', id='description')
+        input(type='hidden', id='id')
+
+    div#taagPreview
+
+    button(id="btnsave")="Save"
