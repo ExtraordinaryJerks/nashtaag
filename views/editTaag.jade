@@ -22,6 +22,8 @@ block scripts
                     type: "POST",
                     url: "/taag/saveTaag",
                     data: json,
+                    dataType: "json",
+                    contentType: 'application/json',
                     success: function() { 
                         alert('success'); 
                     },
