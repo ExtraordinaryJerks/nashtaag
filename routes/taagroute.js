@@ -27,6 +27,9 @@ TaagRoute.prototype = {
         var videoItems = item.medias.filter(function(element,index,array){
           return (element.type == 'Video');
         });
+        var linkItems = item.medias.filter(function(element,index,array){
+          return(element.type =='Link');
+        });
 
         for (var i = videoItems.length - 1; i >= 0; i--) {
           var urlLib = require('url');
@@ -36,7 +39,9 @@ TaagRoute.prototype = {
           var videoId = urlQuery.v;
           videoItems[i].videoId = videoId;
         };
-        res.render('showTaag',{title: item.title , taag: item,videos:videoItems});
+        res.render('showTaag',{title: item.title , taag: item,videos:videoItems,links:linkItems});
+      }else{
+        res.redirect('/')
       }
     });
 
