@@ -18,3 +18,8 @@
 #taag_form #btnsave{
     margin-left: 100%;
 }
+
+#taagPreviewLabelContainer{
+    margin-bottom: 25px;
+    margin-left: 25%;
+}
