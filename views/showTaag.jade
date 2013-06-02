@@ -44,6 +44,6 @@ block content
                 each vid , i in videos
                     div.span6
                         div.flex-video.widescreen
-                            iframe(src="https://www.youtube-nocookie.com/embed/", frameborder="0", allowfullscreen="")
+                            iframe(src="https://www.youtube-nocookie.com/embed/" + vid.videoId, frameborder="0", allowfullscreen="")
     else
         h2.color-4 Sorry, No Taag Found
