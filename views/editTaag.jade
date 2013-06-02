@@ -29,47 +29,44 @@ block scripts
         });        
 
 block content
-div#sample-page.page.color-4
-    .inner-page
-        h2=title
-    .row-fluid.inner-page
-        form
-            .editItem
-                label="Type: "
-                select(id='type', name='taag[type]')
-                    option(value="Point Of Interest")="Point of Interest"
-                    option(value="Location")="Location"
-                    option(value="Service")="Service"
-            .editItem
-                label="Code: "
-                input(type='text', id='code', name='taag[code]')
-            .editItem
-                label="Title: "
-                input(type='text', id='title', name='taag[title]')
-            .editItem
-                label="Decription: "
-                input(type='text', id='description', name='taag[description]')
-            input(type='hidden', id='id', name='taag[id]')
+    h1=title
+    form
+        .editItem
+            label="Type: "
+            select(id='type', name='taag[type]')
+                option(value="Point Of Interest")="Point of Interest"
+                option(value="Location")="Location"
+                option(value="Service")="Service"
+        .editItem
+            label="Code: "
+            input(type='text', id='code', name='taag[code]')
+        .editItem
+            label="Title: "
+            input(type='text', id='title', name='taag[title]')
+        .editItem
+            label="Decription: "
+            input(type='text', id='description', name='taag[description]')
+        input(type='hidden', id='id', name='taag[id]')
 
-            h3 Media
+        h3 Media
 
-            .editItem
-                label="Type: "
-                select(id='media_0_type', name='media[0][type]')
-                    option(value="Image")="Image"
-                    option(value="Video")="Video"
-                    option(value="Link")="Link"
+        .editItem
+            label="Type: "
+            select(id='media_0_type', name='media[0][type]')
+                option(value="Image")="Image"
+                option(value="Video")="Video"
+                option(value="Link")="Link"
 
-            .editItem
-                label="Url "
-                input(type='text', id='media_0_url', name='media[0][url]') 
+        .editItem
+            label="Url "
+            input(type='text', id='media_0_url', name='media[0][url]') 
 
-            .editItem
-                label="Image "
-                input(type='fileupload', id='media_0_image', name='media[0][image]') 
+        .editItem
+            label="Image "
+            input(type='fileupload', id='media_0_image', name='media[0][image]') 
 
-            input(type='button', class='btn', id='add_media', value='Add Media')
+        input(type='button', class='btn', id='add_media', value='Add Media')
 
-        div#taagPreview
+    div#taagPreview
 
-        button(id="btnsave")="Save"
+    button(id="btnsave")="Save"
