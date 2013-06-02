@@ -27,14 +27,19 @@ block scripts
                     data: json,
                     dataType: "json",
                     contentType: 'application/json',
-                    success: function() { 
-                        alert('success'); 
+                    success: function(data) { 
+                        //alert('success'); 
+                        if (data.isSuccessful){
+                            window.location("/" + data.code)
+                        } else {
+                            alert("Error, no code returned.");
+                        }
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
                         alert('Error: ' + errorThrown + ", Status: " + textStatus);
                     }
                 }).done(function() {
-                    alert("Done");
+                    //alert("Done");
                 });
             });
 
@@ -58,6 +63,7 @@ block scripts
             function MediaViewModel(){
                 var self = this;
                 self.type = ko.observable();
+                self.title = ko.observable();
                 self.url = ko.observable();
                 self.image = ko.observable();
             }
@@ -71,7 +77,7 @@ block scripts
                             $(element).parent().parent().find(".title-column").hide();
                         }else
                         if ($(element).val() === "Video") {
-                            $(element).parent().parent().find(".image-column").show();
+                            $(element).parent().parent().find(".image-column").hide();
                             $(element).parent().parent().find(".url-column").show();
                             $(element).parent().parent().find(".title-column").show();
                         }else
@@ -92,7 +98,7 @@ block scripts
                             $(this).parent().parent().find(".title-column").hide();
                         }else
                         if ($(this).val() === "Video") {
-                            $(this).parent().parent().find(".image-column").show();
+                            $(this).parent().parent().find(".image-column").hide();
                             $(this).parent().parent().find(".url-column").show();
                             $(this).parent().parent().find(".title-column").show();
                         }else
@@ -145,7 +151,7 @@ block content
                                 td(class="url-column")
                                     input(data-bind="value: url", placeholder="url")
                                 td(class="title-column")
-                                    input(data-bind="value: url", placeholder="title")
+                                    input(data-bind="value: title", placeholder="title")
                                 td(class="image-column")
                                     input(type="file", data-bind="value: image", placeholder="image")
                                 td
