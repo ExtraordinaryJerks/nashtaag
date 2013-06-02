@@ -33,9 +33,10 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/:code([A-Za-z\\d]+)', taagRoute.showTaag.bind(taagRoute));
-app.get('/taag/edittaag', taagRoute.editTaag.bind(taagRoute));
+app.get('/taag/edittaag/:code([A-Za-z\\d]+)?', taagRoute.editTaag.bind(taagRoute));
 app.get('/', routes.index);
 app.post('/taag/saveTaag',taagRoute.saveTaag.bind(taagRoute));
+app.post('/taag/getCode',taagRoute.getCode.bind(taagRoute));
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
