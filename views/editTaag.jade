@@ -68,23 +68,23 @@ block scripts
 
 block content
     .row-fluid
-        .span12.offset2
+        .span5.offset2
             h1.color-4=title
-            form
-                .editItem
-                    label="Type: "
+            form#taag_form
+                .editItem.form-select
+                    label.form-label="Type: "
                     select(data-bind="value: type")
                         option(value="Point Of Interest")="Point Of Interest"
                         option(value="Location")="Location"
                         option(value="Service")="Service"
                 .editItem
-                    label="Code: "
+                    label.form-label="Code: "
                     input(type="text", id="code", name="taag[code]", data-bind="value: code")
                 .editItem
-                    label="Title: "
+                    label.form-label="Title: "
                     input(type='text', id='title', name='taag[title]', data-bind="value: title")
                 .editItem
-                    label="Decription: "
+                    label.form-label="Decription: "
                     input(type='text', id='description', name='taag[description]', data-bind="value: description")
                 input(type='hidden', id='id', name='taag[id]', data-bind="value: id")
 
@@ -113,6 +113,7 @@ block content
 
                     button(class='btn', data-bind="click: addMedia")="Add Media"
 
-            div#taagPreview
+                button(id="btnsave", class='btn')="Save"
 
-            button(id="btnsave", class='btn')="Save"
+        .span3#taagPreviewContainer
+            div#taagPreview
