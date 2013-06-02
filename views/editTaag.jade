@@ -13,6 +13,7 @@ block scripts
                     width: 300,
                     height: 300,
                     text: url });
+                $("#taagPreviewLabelContainer label").show();
             });
 
             $("#btnsave").click(function(){
@@ -124,6 +125,6 @@ block content
             button(id="btnsave", class='btn', href='#btnSave')="Save"
         .span3#taagPreviewContainer
             #taagPreviewLabelContainer
-                label="QR Code"
+                label(style="display:none")="QR Code"
             div#taagPreview
     div(style="height: 100px")
