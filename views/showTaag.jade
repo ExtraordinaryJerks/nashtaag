@@ -20,30 +20,49 @@ block content
           position: absolute;
           top: 0;
           left: 0;
-          width: 100%;
-          height: 100%;
+          width: 200px;
+          height: 200px;
         }
         @media only screen and (max-device-width: 800px), only screen and (device-width: 1024px) and (device-height: 600px), only screen and (width: 1280px) and (orientation: landscape), only screen and (device-width: 800px), only screen and (max-width: 767px) {
         .flex-video { padding-top: 0; }
         }
 
-
     // Check and see if taag is populated 
     unless taag == null 
-        #displayTaag
-            h2.color-4=taag.title
-            p 
-                | Type: 
-                | #{taag.type}
+        .row-fluid
+            .span5.offset2
+                h2.title.color-4(style="background:transparent; color: #FFF") #{taag.title}
 
-            p 
-                | Description:  
-                |#{taag.description}
-            h3.color-4="Videos"
-            section.row
-                each vid , i in videos
-                    div.span6
-                        div.flex-video.widescreen
-                            iframe(src="https://www.youtube-nocookie.com/embed/" + vid.videoId, frameborder="0", allowfullscreen="")
+                .row
+                    label(style="display:inline-block; width: 200px; font-size: 22px;") Type: 
+                    .row.content(style="display:inline-block; font-size: 22px;") #{taag.type}
+
+                .row
+                    label(style="display:inline-block; width: 200px; font-size: 22px;") Code:
+                    .row.content(style="display:inline-block; font-size: 22px;") #{taag.code}
+
+                .row
+                    label(style="display:inline-block; width: 200px; font-size: 22px;") Description:  
+                    .row.content(style="display:inline-block; font-size: 22px;") #{taag.description}
+            .span3
+                h2.title.color-4(style="background:transparent; color: #FFF") Links
+                    each link, i in links
+                        unless link == null
+                            .row
+                                label(style="display:inline-block; width: 200px; font-size: 22px;") #{link.type}:
+                                .row.content(style="display:inline-block; font-size: 22px;") #{link.url}
+        .row-fluid
+            .span5.offset2
+                .row
+                    h2.title.color-4(style="background:transparent; color: #FFF") Videos
+                .row
+                    each vid , i in videos
+                        unless vid == null
+                             div.flex-video.widescreen
+                                iframe(src="https://www.youtube-nocookie.com/embed/" + vid.videoId, frameborder="0", allowfullscreen="")
     else
         h2.color-4 Sorry, No Taag Found
+
+
+
+
