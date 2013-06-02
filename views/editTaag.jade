@@ -54,6 +54,10 @@ block scripts
                     self.medias.push(new MediaViewModel());
                 }
                 self.removeMedia = function(m) { self.medias.remove(m) }
+
+                self.selectionChanged: function(event) {
+                     alert("taag");  
+                } 
             }
 
             function MediaViewModel(initialType){
@@ -61,6 +65,10 @@ block scripts
                 self.type = ko.observable();
                 self.url = ko.observable();
                 self.image = ko.observable();
+
+                self.selectionChanged: function(event) {
+                     alert("media");  
+                } 
             }
             var viewModel = new TaagViewModel();
             ko.applyBindings(viewModel);
@@ -93,14 +101,14 @@ block content
                     table
                         thead
                             tr
-                                th="Passenger name"
-                                th="Meal"
-                                th="Surcharge"
+                                th="Type"
+                                th=""
+                                th=""
                                 th=""
                         tbody(data-bind="foreach: medias")
                             tr
                                 td
-                                    select(data-bind="value: type")
+                                    select(data-bind="value: type, event: { change: selectionChanged }")
                                         option(value="Image")="Image"
                                         option(value="Video")="Video"
                                         option(value="Link")="Link"
@@ -113,7 +121,7 @@ block content
 
                     button(class='btn', data-bind="click: addMedia")="Add Media"
 
-                button(id="btnsave", class='btn')="Save"
+            button(id="btnsave", class='btn')="Save"
 
         .span3#taagPreviewContainer
             div#taagPreview
