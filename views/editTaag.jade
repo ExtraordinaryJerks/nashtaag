@@ -54,7 +54,7 @@ block scripts
                 self.removeMedia = function(m) { self.medias.remove(m); } 
             }
 
-            function MediaViewModel(initialType){
+            function MediaViewModel(){
                 var self = this;
                 self.type = ko.observable();
                 self.url = ko.observable();
@@ -113,9 +113,9 @@ block content
                                         option(value="Video")="Video"
                                         option(value="Link")="Link"
                                 td(class="url-column")
-                                    input(id='medias_url', name='medias[url]', data-bind="value: url")
+                                    input(data-bind="value: url")
                                 td(class="image-column")
-                                    input(id='medias_image', name='medias[image]', data-bind="value: image")
+                                    input(type="file", data-bind="value: image")
                                 td
                                     a(href="#", onclick="return false;", data-bind="click: $root.removeMedia")="Remove"
 
