@@ -27,6 +27,15 @@ TaagRoute.prototype = {
         var videoItems = item.medias.filter(function(element,index,array){
           return (element.type == 'Video');
         });
+
+        for (var i = videoItems.length - 1; i >= 0; i--) {
+          var urlLib = require('url');
+          var stringAsUrl = urlLib.parse(videoItems[i].url,true);
+          var urlQuery = stringAsUrl.query;
+          console.log(urlQuery);
+          var videoId = urlQuery.v;
+          videoItems[i].videoId = videoId;
+        };
         res.render('showTaag',{title: item.title , taag: item,videos:videoItems});
       }
     });
