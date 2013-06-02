@@ -50,14 +50,8 @@ block scripts
                     new MediaViewModel(),
                 ]);
 
-                self.addMedia = function() {
-                    self.medias.push(new MediaViewModel());
-                }
-                self.removeMedia = function(m) { self.medias.remove(m) }
-
-                //self.selectionChanged: function(event) {
-                //     alert("taag");  
-                //} 
+                self.addMedia = function() { self.medias.push(new MediaViewModel()); }
+                self.removeMedia = function(m) { self.medias.remove(m); } 
             }
 
             function MediaViewModel(initialType){
@@ -66,9 +60,15 @@ block scripts
                 self.url = ko.observable();
                 self.image = ko.observable();
 
-                //self.selectionChanged: function(event) {
-                //     alert("media");  
-                //} 
+                this.type.subscribe(function(newValue) {
+                    if (newValue === "Image") {
+                        $(".image-column").show();
+                        $(".url-column").hide();
+                    }else{
+                        $(".image-column").hide();
+                        $(".url-column").show();
+                    }
+                }, this);
             }
             var viewModel = new TaagViewModel();
             ko.applyBindings(viewModel);
@@ -102,8 +102,8 @@ block content
                         thead
                             tr
                                 th="Type"
-                                th=""
-                                th=""
+                                th(class="url-column")="URL"
+                                th(class="image-column")="File"
                                 th=""
                         tbody(data-bind="foreach: medias")
                             tr
@@ -112,9 +112,9 @@ block content
                                         option(value="Image")="Image"
                                         option(value="Video")="Video"
                                         option(value="Link")="Link"
-                                td
+                                td(class="url-column")
                                     input(id='medias_url', name='medias[url]', data-bind="value: url")
-                                td
+                                td(class="image-column")
                                     input(id='medias_image', name='medias[image]', data-bind="value: image")
                                 td
                                     a(href="#", onclick="return false;", data-bind="click: $root.removeMedia")="Remove"
