@@ -11,7 +11,8 @@ block content
     unless theTaags == null
         .inner-page
             .row-fluid.span8
-                h2.color-4 The Taags
+                h2.color-4(style="background:transparent; color: #FFF") 
+                    The Taags
                 table
                     thead
                         tr
@@ -23,7 +24,8 @@ block content
                                 tr
                                     td 
                                         a.color-4(href='/taag/editTaag/' + taag.code) #{taag.title}
-                                    td=taag.type
+                                    td 
+                                        span.color-4= taag.type
 
     else
         .inner-page
