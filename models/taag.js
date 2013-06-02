@@ -5,7 +5,7 @@ var mongoose = require('mongoose')
 
 var TaagSchema = new Schema({
 	  type : String
-	, code: String
+	, code: {type:String,lowercase:true }
 	, title : String
 	, description : String
 	, issues : [IssueSchema.schema]
