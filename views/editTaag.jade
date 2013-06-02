@@ -55,9 +55,9 @@ block scripts
                 }
                 self.removeMedia = function(m) { self.medias.remove(m) }
 
-                self.selectionChanged: function(event) {
-                     alert("taag");  
-                } 
+                //self.selectionChanged: function(event) {
+                //     alert("taag");  
+                //} 
             }
 
             function MediaViewModel(initialType){
@@ -66,9 +66,9 @@ block scripts
                 self.url = ko.observable();
                 self.image = ko.observable();
 
-                self.selectionChanged: function(event) {
-                     alert("media");  
-                } 
+                //self.selectionChanged: function(event) {
+                //     alert("media");  
+                //} 
             }
             var viewModel = new TaagViewModel();
             ko.applyBindings(viewModel);
@@ -108,7 +108,7 @@ block content
                         tbody(data-bind="foreach: medias")
                             tr
                                 td
-                                    select(data-bind="value: type, event: { change: selectionChanged }")
+                                    select(data-bind="value: type")
                                         option(value="Image")="Image"
                                         option(value="Video")="Video"
                                         option(value="Link")="Link"
