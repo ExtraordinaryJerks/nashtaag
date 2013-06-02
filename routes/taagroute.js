@@ -16,15 +16,13 @@ TaagRoute.prototype = {
 	},
 
 	showTaag: function(req, res){
-    console.log(req.params.code);
-		// taag.find({Code:req.params.code},function(err, item) 
-  //   	{
-  //         console.log(item);
-  //     		//res.render('taag',{title: 'Single Taag' , taag: item})
-  //   	});
-      res.write(req.params.code);
-      res.end();
-	},
+    Taag.findOne({Code:req.params.code},function(err, item) 
+    {
+      console.log(item);
+      res.render('showTaag',{title: 'Single Taag' , taag: item});
+    });
+
+  },
 
 	saveTaag: function(req, res){
     

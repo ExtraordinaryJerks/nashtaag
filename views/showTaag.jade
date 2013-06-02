@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    // Check and see if taag is populated 
+    unless taag == null 
+        #displayTaag
+            h3=taag.Title
+
+            p 
+                | Type: 
+                | #{taag.Type}
+
+            p 
+                | Description:  
+                |#{taag.Description}
+    else
+        h2 Sorry, No Taag Found
