@@ -77,7 +77,7 @@ block scripts
 block content
     .row-fluid
         .span5.offset2
-            h1.color-4=title
+            h1.color-4(style="background:transparent; color: #FFF")=title
             form#taag_form
                 .editItem.form-select
                     label.form-label="Type: "
@@ -121,7 +121,12 @@ block content
 
                     button(class='btn', data-bind="click: addMedia")="Add Media"
 
+<<<<<<< HEAD
+                button(id="btnsave", class='btn', href='#btnSave')="Save"
+=======
             button(id="btnsave", class='btn')="Save"
+>>>>>>> 7b0a933d4c7280b68c0e3a861b567c69f76bb27b
 
         .span3#taagPreviewContainer
             div#taagPreview
+    div(style="height: 100px")
