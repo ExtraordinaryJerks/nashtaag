@@ -1,0 +1,20 @@
+#content-container{
+    padding-top: 30px;
+}
+
+.form-label{
+    display: inline-block;
+    width: 100px;
+}
+
+.form-select{
+    margin-bottom: 10px;
+}
+
+#taagPreviewContainer{
+    margin-top: 100px;
+}
+
+#taag_form #btnsave{
+    margin-left: 100%;
+}
