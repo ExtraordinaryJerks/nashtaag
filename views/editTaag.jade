@@ -63,50 +63,52 @@ block scripts
         });        
 
 block content
-    h1=title
-    form
-        .editItem
-            label="Type: "
-            select(data-bind="value: type")
-                option(value="Point Of Interest")="Point Of Interest"
-                option(value="Location")="Location"
-                option(value="Service")="Service"
-        .editItem
-            label="Code: "
-            input(type="text", id="code", name="taag[code]", data-bind="value: code")
-        .editItem
-            label="Title: "
-            input(type='text', id='title', name='taag[title]', data-bind="value: title")
-        .editItem
-            label="Decription: "
-            input(type='text', id='description', name='taag[description]', data-bind="value: description")
-        input(type='hidden', id='id', name='taag[id]', data-bind="value: id")
+    .row-fluid
+        .span12.offset2
+            h1.color-4=title
+            form
+                .editItem
+                    label="Type: "
+                    select(data-bind="value: type")
+                        option(value="Point Of Interest")="Point Of Interest"
+                        option(value="Location")="Location"
+                        option(value="Service")="Service"
+                .editItem
+                    label="Code: "
+                    input(type="text", id="code", name="taag[code]", data-bind="value: code")
+                .editItem
+                    label="Title: "
+                    input(type='text', id='title', name='taag[title]', data-bind="value: title")
+                .editItem
+                    label="Decription: "
+                    input(type='text', id='description', name='taag[description]', data-bind="value: description")
+                input(type='hidden', id='id', name='taag[id]', data-bind="value: id")
 
-        h3 Media
-        .editItem
-            table
-                thead
-                    tr
-                        th="Passenger name"
-                        th="Meal"
-                        th="Surcharge"
-                        th=""
-                tbody(data-bind="foreach: medias")
-                    tr
-                        td
-                            select(data-bind="value: type")
-                                option(value="Image")="Image"
-                                option(value="Video")="Video"
-                                option(value="Link")="Link"
-                        td
-                            input(id='medias_url', name='medias[url]', data-bind="value: url")
-                        td
-                            input(id='medias_image', name='medias[image]', data-bind="value: image")
-                        td
-                            a(href="#", onclick="return false;", data-bind="click: $root.removeMedia")="Remove"
+                h3 Media
+                .editItem
+                    table
+                        thead
+                            tr
+                                th="Passenger name"
+                                th="Meal"
+                                th="Surcharge"
+                                th=""
+                        tbody(data-bind="foreach: medias")
+                            tr
+                                td
+                                    select(data-bind="value: type")
+                                        option(value="Image")="Image"
+                                        option(value="Video")="Video"
+                                        option(value="Link")="Link"
+                                td
+                                    input(id='medias_url', name='medias[url]', data-bind="value: url")
+                                td
+                                    input(id='medias_image', name='medias[image]', data-bind="value: image")
+                                td
+                                    a(href="#", onclick="return false;", data-bind="click: $root.removeMedia")="Remove"
 
-            button(class='btn', data-bind="click: addMedia")="Add Media"
+                    button(class='btn', data-bind="click: addMedia")="Add Media"
 
-    div#taagPreview
+            div#taagPreview
 
-    button(id="btnsave", class='btn')="Save"
+            button(id="btnsave", class='btn')="Save"
