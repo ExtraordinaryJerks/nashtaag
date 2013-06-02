@@ -25,50 +25,44 @@ TaagRoute.prototype = {
   },
 
 	saveTaag: function(req, res){
-    
-     //console.log(Taag);
-     
-
-
      var isNew = false;
      if(req.body.id == '')
       {isNew = true;}
 
        var newTaag = new Taag();
-       //newTaag._id = req.body.id;
        newTaag.Type =req.body.type;
        newTaag.Code = req.body.code;
        newTaag.Title = req.body.title;
        newTaag.Description = req.body.description; 
-      console.log(req.body);
-       newTaag.save(function(err){
-          console.log('in the save function');
+      
+      if(isNew){
+          newTaag.save(function(err,createdTaag){
           if(err){
-              //console.log('{isSuccessful:false,responseMessage:'+ err.msg+'}');
-              console.log('fail');
+              console(err);
+              res.writeHead(200, {"Content-Type": "application/json"});
+              res.write(JSON.stringify({isSuccessful:false,responseMessage:err.msg}));
+              res.end();
             }else{
-              //console.log('{isSuccessful:true:code:'+ theTaag.Code+'}');
-              console.log('success');
+              res.writeHead(200, {"Content-Type": "application/json"});
+              res.write(JSON.stringify({isSuccessful:true,code:createdTaag.Code}));
+              res.end();
             }
        });
-
-       // Taag.findByIdAndUpdate(newTaag._id,
-       //                            newTaag,  
-       //                            {upsert:isNew},
-       //    function(err){
-       //      if(err)
-       //      {
-       //        res.write('{isSuccessful:false,responseMessage:'+ err.msg+'}');
-       //        res.end();
-       //      }else{
-       //        res.write('{isSuccessful:true:code:'+ newTaag.Code +'}');
-       //        res.end();
-       //      }
-       //  });
-      
-
-      
-      console.log('end of action');
+      }else{
+        var query = {_id:req.body.id};
+       Taag.findOneAndUpdate(query,
+        newTaag,
+        {upsert:isNew},
+        function(err,upsertedTaag){
+          if(err){
+              res.write('{isSuccessful:false,responseMessage:'+ err.msg+'}');
+              res.end();
+            }else{
+              res.write("{isSuccessful:true,code:'"+ createdTaag.Code + "'}");
+              res.end();
+            }
+       });
+      }
 	},
 
   editTaag: function(reg, res){
