@@ -71,6 +71,59 @@ block scripts
                     }
                 }, this);
             }
+
+
+            ko.bindingHandlers.selectChanged = {
+                init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                    if ($(element).val() === "Image") {
+                            $(element).parent().parent().find(".image-column").show();
+                            $(element).parent().parent().find(".url-column").hide();
+                            $(element).parent().parent().find(".title-column").hide();
+                        }else
+                        if ($(element).val() === "Video") {
+                            $(element).parent().parent().find(".image-column").show();
+                            $(element).parent().parent().find(".url-column").show();
+                            $(element).parent().parent().find(".title-column").show();
+                        }else
+                        {
+                            $(element).parent().parent().find(".image-column").hide();
+                            $(element).parent().parent().find(".url-column").show();
+                            $(element).parent().parent().find(".title-column").hide();
+                        }
+                },
+                update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                    $(element).change(function(){
+
+                        //alert("Hello");
+
+                        if ($(this).val() === "Image") {
+                            $(this).parent().parent().find(".image-column").show();
+                            $(this).parent().parent().find(".url-column").hide();
+                            $(this).parent().parent().find(".title-column").hide();
+                        }else
+                        if ($(this).val() === "Video") {
+                            $(this).parent().parent().find(".image-column").show();
+                            $(this).parent().parent().find(".url-column").show();
+                            $(this).parent().parent().find(".title-column").show();
+                        }else
+                        {
+                            $(this).parent().parent().find(".image-column").hide();
+                            $(this).parent().parent().find(".url-column").show();
+                            $(this).parent().parent().find(".title-column").hide();
+                        }
+
+                    });
+                }
+            };
+
+            function SelectChange(element){
+                
+
+                $(element).change(function(){
+                    alert($(element))
+                });
+            }
+
             var viewModel = new TaagViewModel();
             ko.applyBindings(viewModel);
         });        
@@ -100,23 +153,19 @@ block content
                 h3 Media
                 .editItem
                     table
-                        thead
-                            tr
-                                th="Type"
-                                th(class="url-column")="URL"
-                                th(class="image-column")="File"
-                                th=""
                         tbody(data-bind="foreach: medias")
                             tr
                                 td
-                                    select(data-bind="value: type")
+                                    select(data-bind="selectChanged: type")
                                         option(value="Image")="Image"
                                         option(value="Video")="Video"
                                         option(value="Link")="Link"
                                 td(class="url-column")
-                                    input(data-bind="value: url")
+                                    input(data-bind="value: url", placeholder="url")
+                                td(class="title-column")
+                                    input(data-bind="value: url", placeholder="title")
                                 td(class="image-column")
-                                    input(type="file", data-bind="value: image")
+                                    input(type="file", data-bind="value: image", placeholder="image")
                                 td
                                     a(href="#", onclick="return false;", data-bind="click: $root.removeMedia")="Remove"
 
