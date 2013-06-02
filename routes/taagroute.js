@@ -26,39 +26,38 @@ TaagRoute.prototype = {
 
 	saveTaag: function(req, res){
      var isNew = false;
-     if(req.body.taag.id == '')
-      {isNew = true;}
-
+     var theId;
+     if(req.body.taag.id == '' || req.body.taag.id == 'undefined'){
+      isNew = true;theId = null;
+    }else{
+      theId = req.body.taag.id;
+    }
       var newTaag = new Taag(req.body.taag);
-      
-      if(isNew){
-          newTaag.save(function(err,createdTaag){
+      var idObject = require('mongoose').Types.ObjectId;
+       Taag.findById(new idObject(theId),
+        function(err,foundTaag){
           if(err){
-              console(err);
-              res.writeHead(200, {"Content-Type": "application/json"});
-              res.write(JSON.stringify({isSuccessful:false,responseMessage:err.msg}));
+              res.writeHead(500,err.message);
               res.end();
             }else{
-              res.writeHead(200, {"Content-Type": "application/json"});
-              res.write(JSON.stringify({isSuccessful:true,code:createdTaag.Code}));
-              res.end();
+              if(foundTaag){
+                  Taag.update({_id:new idObject(theId)},
+                        newTaag,
+                        function(err,updatedTaag){
+                          res.writeHead(200, { 'Content-Type': 'application/json' });
+                          res.write(JSON.stringify({isSuccessful:true,code:updatedTaag.code}));
+                          res.end();
+                        });
+              }else{
+                  newTaag.save(
+                    function(err,createdTaag){
+                      res.writeHead(200, { 'Content-Type': 'application/json' });
+                      res.write(JSON.stringify({isSuccessful:true,code:createdTaag.code}));
+                      res.end();
+                  });
+              }
             }
        });
-      }else{
-        var query = {_id:req.body.id};
-       Taag.findOneAndUpdate(query,
-        newTaag,
-        {upsert:isNew},
-        function(err,upsertedTaag){
-          if(err){
-              res.write('{isSuccessful:false,responseMessage:'+ err.msg+'}');
-              res.end();
-            }else{
-              res.write("{isSuccessful:true,code:'"+ createdTaag.Code + "'}");
-              res.end();
-            }
-       });
-      }
 	},
 
   editTaag: function(reg, res){
