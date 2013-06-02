@@ -60,9 +60,21 @@ TaagRoute.prototype = {
        });
 	},
 
-  editTaag: function(reg, res){
-    res.render('editTaag', { title: 'Create/Edit a Taag' });
+  editTaag: function(req, res){
+    var taag = null;
+    Taag.findOne({Code:req.params.code},function(err, item) 
+    {
+      taag = item;
+    });
+    res.render('editTaag', { title: 'Create/Edit a Taag', item: taag });
     //res.write('test response');
     //res.end();
+  },
+
+  getCode: function(req, res){
+    var code = new Code().create();
+    res.writeHead(200, {"Content-Type": "application/json"});
+    res.write(JSON.stringify({ code:code }));
+    res.end();
   }
 }

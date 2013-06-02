@@ -52,10 +52,20 @@ block content
 
         .editItem
             label="Type: "
-            select(id='media_type', name='media[type]')
+            select(id='media_0_type', name='media[0][type]')
                 option(value="Image")="Image"
                 option(value="Video")="Video"
                 option(value="Link")="Link"
+
+        .editItem
+            label="Url "
+            input(type='text', id='media_0_url', name='media[0][url]') 
+
+        .editItem
+            label="Image "
+            input(type='fileupload', id='media_0_image', name='media[0][image]') 
+
+        input(type='button', class='btn', id='add_media', value='Add Media')
 
     div#taagPreview
 
