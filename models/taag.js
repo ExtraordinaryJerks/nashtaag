@@ -8,8 +8,8 @@ var TaagSchema = new Schema({
 	, code: String
 	, title : String
 	, description : String
-	, issues : [IssueSchema]
-    , media : [MediaSchema]
+	, issues : [IssueSchema.schema]
+    , medias : [MediaSchema.schema]
 });
 
 module.exports = mongoose.model('Taag', TaagSchema);

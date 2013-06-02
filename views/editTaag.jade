@@ -12,61 +12,101 @@ block scripts
                 text: 'http://www.nashtaag.com/qrcode'});
 
             $("#btnsave").click(function(){
+                var taag = { taag: null };
+                taag.taag = ko.toJS(viewModel);
+                var json = JSON.stringify(taag);
+
                 $.ajax({
                     type: "POST",
                     url: "/taag/saveTaag",
-                    data: $("form").serialize(),
+                    data: json,
+                    dataType: "json",
+                    contentType: 'application/json',
                     success: function() { 
                         alert('success'); 
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        //alert('Error: ' + errorThrown + ", Status: " + textStatus);
+                        alert('Error: ' + errorThrown + ", Status: " + textStatus);
                     }
                 }).done(function() {
                     alert("Done");
                 });
             });
+
+            function TaagViewModel(){
+                var self = this;
+
+                self.id = ko.observable();
+                self.type = ko.observable();
+                self.code = ko.observable();
+                self.title = ko.observable();
+                self.description = ko.observable();
+
+                self.medias = ko.observableArray([
+                    new MediaViewModel(),
+                ]);
+
+                self.addMedia = function() {
+                    self.medias.push(new MediaViewModel());
+                }
+                self.removeMedia = function(m) { self.medias.remove(m) }
+            }
+
+            function MediaViewModel(initialType){
+                var self = this;
+                self.type = ko.observable();
+                self.url = ko.observable();
+                self.image = ko.observable();
+            }
+            var viewModel = new TaagViewModel();
+            ko.applyBindings(viewModel);
         });        
 
 block content
-    h1.color-4=title
+    h1=title
     form
         .editItem
             label="Type: "
-            select(id='type', name='taag[type]')
-                option(value="Point Of Interest")="Point of Interest"
+            select(data-bind="value: type")
+                option(value="Point Of Interest")="Point Of Interest"
                 option(value="Location")="Location"
                 option(value="Service")="Service"
         .editItem
             label="Code: "
-            input(type='text', id='code', name='taag[code]')
+            input(type="text", id="code", name="taag[code]", data-bind="value: code")
         .editItem
             label="Title: "
-            input(type='text', id='title', name='taag[title]')
+            input(type='text', id='title', name='taag[title]', data-bind="value: title")
         .editItem
             label="Decription: "
-            input(type='text', id='description', name='taag[description]')
-        input(type='hidden', id='id', name='taag[id]')
+            input(type='text', id='description', name='taag[description]', data-bind="value: description")
+        input(type='hidden', id='id', name='taag[id]', data-bind="value: id")
 
         h3 Media
-
         .editItem
-            label="Type: "
-            select(id='media_0_type', name='media[0][type]')
-                option(value="Image")="Image"
-                option(value="Video")="Video"
-                option(value="Link")="Link"
+            table
+                thead
+                    tr
+                        th="Passenger name"
+                        th="Meal"
+                        th="Surcharge"
+                        th=""
+                tbody(data-bind="foreach: medias")
+                    tr
+                        td
+                            select(data-bind="value: type")
+                                option(value="Image")="Image"
+                                option(value="Video")="Video"
+                                option(value="Link")="Link"
+                        td
+                            input(id='medias_url', name='medias[url]', data-bind="value: url")
+                        td
+                            input(id='medias_image', name='medias[image]', data-bind="value: image")
+                        td
+                            a(href="#", onclick="return false;", data-bind="click: $root.removeMedia")="Remove"
 
-        .editItem
-            label="Url "
-            input(type='text', id='media_0_url', name='media[0][url]') 
-
-        .editItem
-            label="Image "
-            input(type='fileupload', id='media_0_image', name='media[0][image]') 
-
-        input(type='button', class='btn', id='add_media', value='Add Media')
+            button(class='btn', data-bind="click: addMedia")="Add Media"
 
     div#taagPreview
 
-    button(id="btnsave")="Save"
+    button(id="btnsave", class='btn')="Save"

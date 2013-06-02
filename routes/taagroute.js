@@ -1,5 +1,6 @@
+var Issue = require('../models/issue.js');
+var Media = require('../models/media.js');
 var Taag = require('../models/taag.js');
-var issue = require('../models/issue.js');
 var mongo = require('mongoose');
 module.exports = TaagRoute;
 
@@ -29,39 +30,48 @@ TaagRoute.prototype = {
   },
 
 	saveTaag: function(req, res){
-     var isNew = false;
-     var theId;
-     if(req.body.taag.id == '' || req.body.taag.id == 'undefined'){
+    var isNew = false;
+    var theId;
+    if(req.body.taag.id == '' || req.body.taag.id == 'undefined'){
       isNew = true;theId = null;
     }else{
       theId = req.body.taag.id;
     }
-      var newTaag = new Taag(req.body.taag);
-      var idObject = require('mongoose').Types.ObjectId;
-       Taag.findById(new idObject(theId),
-        function(err,foundTaag){
-          if(err){
-              res.writeHead(500,err.message);
-              res.end();
-            }else{
-              if(foundTaag){
-                  Taag.update({_id:new idObject(theId)},
-                        newTaag,
-                        function(err,updatedTaag){
-                          res.writeHead(200, { 'Content-Type': 'application/json' });
-                          res.write(JSON.stringify({isSuccessful:true,code:updatedTaag.code}));
-                          res.end();
-                        });
-              }else{
-                  newTaag.save(
-                    function(err,createdTaag){
+    var newTaag = new Taag(req.body.taag);
+
+    var idObject = require('mongoose').Types.ObjectId;
+    Taag.findById(new idObject(theId),
+    function(err,foundTaag){
+      if(err){
+          res.writeHead(500,err.message);
+          res.end();
+      }else{
+          if(foundTaag){
+              Taag.update({_id:new idObject(theId)},
+                    newTaag,
+                    function(err,updatedTaag){
                       res.writeHead(200, { 'Content-Type': 'application/json' });
-                      res.write(JSON.stringify({isSuccessful:true,code:createdTaag.code}));
+                      res.write(JSON.stringify({isSuccessful:true,code:updatedTaag.code}));
                       res.end();
-                  });
-              }
-            }
-       });
+                    });
+          }else{
+              newTaag.save(
+                function(err,createdTaag){
+                  if (err){
+                    console.log("error after save.");
+                    console.log(err);
+                    console.log(req.body.taag);
+                    console.log(newTaag);
+                    res.writeHead(500,err.message);
+                    res.end();
+                  }
+                  res.writeHead(200, { 'Content-Type': 'application/json' });
+                  res.write(JSON.stringify({isSuccessful:true,code:createdTaag.code}));
+                  res.end();
+              });
+          }
+      }
+    });
 	},
 
   editTaag: function(req, res){
