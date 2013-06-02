@@ -23,8 +23,12 @@ TaagRoute.prototype = {
 	showTaag: function(req, res){
     Taag.findOne({code:req.params.code},function(err, item) 
     {
-      if(item)
-        res.render('showTaag',{title: item.title , taag: item});
+      if(item){
+        var videoItems = item.medias.filter(function(element,index,array){
+          return (element.type == 'Video');
+        });
+        res.render('showTaag',{title: item.title , taag: item,videos:videoItems});
+      }
     });
 
   },
