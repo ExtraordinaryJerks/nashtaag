@@ -29,22 +29,8 @@ html
     body#top(data-spy="scroll", data-target=".navbar")
         include header
 
-        block content
+        .container
+            block content
 
-        footer.page.color-5
-            .inner-page.row-fluid
-                .span6.social
-                    a(href="#contact")
-                        i.icon-twitter
-                    a(href="#contact")
-                        i.icon-facebook-sign
-                    a(href="#contact")
-                        i.icon-github-sign
-                    a(href="#contact")
-                        i.icon-google-plus-sign
-                .span6.text-right.copyright
-                    &copy; 2013 
-                    a.scroll(href="#top", title="Got to top")
-                        To top 
-                        i.icon-caret-up
+        include footer
 
