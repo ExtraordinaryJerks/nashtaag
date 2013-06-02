@@ -21,7 +21,7 @@ TaagRoute.prototype = {
 	},
 
 	showTaag: function(req, res){
-    Taag.findOne({code:req.params.code},function(err, item) 
+    Taag.findOne({code:req.params.code.toLowerCase()},function(err, item) 
     {
       if(item){
         var videoItems = item.medias.filter(function(element,index,array){
