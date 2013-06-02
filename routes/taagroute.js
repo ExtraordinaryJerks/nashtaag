@@ -108,5 +108,34 @@ TaagRoute.prototype = {
     res.writeHead(200, {"Content-Type": "application/json"});
     res.write(JSON.stringify({ code:code }));
     res.end();
+  },
+
+  addIssue: function(req,res){
+    Taag.findOne({code:req.body.code},function(err,returnedTaag){
+      if(err){
+        res.writeHead(500,err.message);
+        res.end();
+      }else{
+        if(returnedTaag){
+          var newIssue = new Issue();
+          newIssue.title = req.body.issueTitle;
+          newIssue.description = req.body.description;
+          returnedTaag.issues.push(newIssue);
+          returnedTaag.save(function(err){
+            if(err){
+              res.writeHead(500,'No taag found for that code');
+              res.end();
+            }else{
+              res.writeHead(200, { 'Content-Type': 'application/json' });
+              res.write(JSON.stringify({isSuccessful:true}));
+              res.end();
+            }
+          });
+        }else{
+          res.writeHead(500,'No taag found for that code');
+          res.end();
+        }
+      }
+    });
   }
 }
