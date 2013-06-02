@@ -3,12 +3,12 @@ extends layout
 block content
     // Check and see if taag is populated 
     unless theTaags == null 
-        h2 The Taags
+        h2.color-4 The Taags
         ul
             each taag in theTaags
                 if taag.code != null
                     li 
-                        a(href='/taag/editTaag/' + taag.code) #{taag.title}
+                        a.color-4(href='/taag/editTaag/' + taag.code) #{taag.title}
 
     else
-        h2 Sorry, No Taags Found
+        h2.color-4 Sorry, No Taags Found
