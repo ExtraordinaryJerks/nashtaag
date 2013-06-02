@@ -21,10 +21,10 @@ TaagRoute.prototype = {
 	},
 
 	showTaag: function(req, res){
-    Taag.findOne({Code:req.params.code},function(err, item) 
+    Taag.findOne({code:req.params.code},function(err, item) 
     {
-      console.log(item);
-      res.render('showTaag',{title: 'Single Taag' , taag: item});
+      if(item)
+        res.render('showTaag',{title: item.title , taag: item});
     });
 
   },

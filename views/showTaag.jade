@@ -4,14 +4,15 @@ block content
     // Check and see if taag is populated 
     unless taag == null 
         #displayTaag
-            h3.color-4=taag.Title
+            h3.color-4=taag.title
+
 
             p 
                 | Type: 
-                | #{taag.Type}
+                | #{taag.type}
 
             p 
                 | Description:  
-                |#{taag.Description}
+                |#{taag.description}
     else
         h2.color-4 Sorry, No Taag Found
