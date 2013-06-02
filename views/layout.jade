@@ -7,17 +7,26 @@ html
             block meta
                 meta(name='description', content='')
                 meta(name='keywords', content='')
-            link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
-            link(rel='stylesheet', href='/stylesheets/style.css')
-            link(rel='stylesheet', href='/stylesheets/bootstrap-responsive.min.css')
-            link(rel='stylesheet', href='/stylesheets/jquery-ui.css')
+                meta(charset='utf-8')
+                meta(name='viewport', content='width=device-width, initial-scale=1.0')
             block css
-            script(src='/javascripts/jquery-2.0.2.js')
-            script(src="/javascripts/jquery-ui-1.10.3.js")
-            script(src='/javascripts/bootstrap.js')
+                link(rel='stylesheet', href='/assets/less/style.min.css')
+                link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Pacifico', type='text/css')
             block scripts
-    body
+                script(src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js')
+                script
+                    if (typeof jQuery == 'undefined') {
+                        document.write(unescape("%3Cscript src='assets/js/jquery-1.9.1.min.js' type='text/javascript'%3E%3C/script%3E"));
+                    }
+                script(src='/assets/js/lazyload.js')
+                script(src='/ssets/js/jRespond.js')
+                script(src='/assets/js/spin.js')
+                script(src='/assets/js/bootstrap.min.js')
+                script(src='/assets/js/lightbox.min.js')
+                script(src='/assets/js/bootstrap.min.js')
+                script(src='/assets/js/main.js')                
+    body#top(data-spy="scroll", data-target=".navbar")
         include header
 
-        .container#content-container  
+        .page.color-1#home  
             block content

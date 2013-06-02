@@ -1,0 +1,182 @@
+/*
+ *  The Story
+ *  Twitter Bootstrap Template
+ *
+ *  ALL RIGHTS RESERVED.
+ *  prettystrap.com
+ *
+ */
+
+
+// Bootstrap v2.3.2
+@import "bootstrap.less";
+@import "bootstrap/responsive.less";
+
+// Importing font-awesome 3.11
+
+@import "font-awesome/font-awesome.less";
+
+
+
+// -------------------------
+// Variables
+// -------------------------
+
+// Colors
+
+@color-1: #4BAAD3;
+
+@color-2: #3A9AC4;
+
+@color-3: #F6FCFF;
+
+@color-4: #fff;
+
+@color-5: #010a0c;
+
+@color-6: #3083A7;
+
+@color-7: #000;
+ 
+// UI Colors
+
+@link-color-dark: @color-6;
+
+
+@navbar-color:  rgba(0,0,0, 0.8); // Navigation bar color.
+
+@navbar-responsive: #181818;
+
+@border-color:  @color-2;
+
+@sansFontFamily:   Source Sans Pro,  Helvetica, Arial, sans-serif;
+
+@baseFontSize:          17px;
+@baseFontFamily:        @sansFontFamily;
+@baseLineHeight:        25px;
+
+// Twitter Bootstrap Variables
+// -------------------------
+
+@hrBorder:   lighten(@color-6, 40%);
+
+@baseBorderRadius:      0;
+@borderRadiusLarge:     0;
+@borderRadiusSmall:     0;
+
+// Scaffolding
+// -------------------------
+@bodyBackground:        #fff;
+@textColor:             @grayDark;
+
+
+@gridGutterWidth: 0px;
+
+@gridGutterWidth1200:0px;
+
+@gridGutterWidth768: 0px;
+
+// Links
+// -------------------------
+@linkColor:             #fff;
+@linkColorHover:        darken(@linkColor, 15%);
+
+// Buttons
+// -------------------------
+@btnBackground:                    @color-6;
+@btnBackgroundHighlight:           darken(@btnBackground, 10%);
+@btn-hover:                        darken(@btnBackground, 10%); 
+
+
+// Navbar
+// -------------------------
+
+@navbarHeight:                    40px;
+@navbarBackgroundHighlight:       @color-1;
+@navbarBackground:                #fff;
+@navbarBorder:                    darken(@navbarBackground, 12%);
+
+@navbarText:                      #FFF;
+@navbarLinkColor:                 #FFF;
+@navbarLinkColorHover:            @color-7;
+@navbarLinkColorActive:           @color-7;
+@navbarLinkBackgroundHover:       @color-1;
+@navbarLinkBackgroundActive:      @color-1;
+
+@navbarCollapseWidth:             768px;
+@navbarCollapseDesktopWidth:      @navbarCollapseWidth + 1;
+
+
+// Typography
+
+@sansFontFamily:        Open Sans, Source Sans Pro, Helvetica, Arial, sans-serif;
+@baseFontSize:          17px;
+@baseFontFamily:        @sansFontFamily;
+@baseLineHeight:        24px;
+
+
+
+// Importing The Story
+
+@import "pages.less"; // The layout, page colors, and Individual page hacks.
+
+@import "navigation.less"; // The navigation. Colors, layout and animation
+
+@import "ui.less"; // User interface. Buttons, Lists, Inputs, etc.
+
+@import "buttons.less";
+
+@import "typography.less"; // Font sizes and colors.
+
+@import "responsive.less"; // Desktop, Tablet and Mobile views
+
+@import "lightbox.less"; // Desktop, Tablet and Mobile views
+  
+
+/* Global */
+/* -------------------------------------------------- */
+
+body {
+  font-family: @sansFontFamily;
+  font-weight: 300;
+}
+
+body, textarea:focus, input:focus{
+    outline: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* Remove horizontal scrollbar */
+
+html {
+  overflow-x: hidden;
+}
+
+/* Selection color */
+
+::selection {
+  background: @color-7;
+  color: #ffffff; 
+}
+
+::-moz-selection {
+  background: @color-7;
+  color: #ffffff;
+}
+
+
+
+/* Useful classes */
+
+
+.centered {
+  margin: 0 auto;
+  display:block;
+}
+
+.border {
+  border: 1px solid @border-color;
+}
+
+
+

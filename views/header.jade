@@ -1,16 +1,7 @@
-div.navbar.navbar-static-top
-    div.header
-        div.header-inner.container
-            .row-fluid
-                .span8
-                    h3 NashTaag
-    div.container
-        div.navbar-inner
-            a.btn.btn-navbar(data-toggle="collapse", data-target=".nav-collapse")
-                span.icon-bar
-                span.icon-bar
-                span.icon-bar
-            a.brand(href="#")
-                i.icon-home
-            div.nav-collapse.collapse
-                include navigation
+header.navbar.navbar-fixed-top
+    div.inner-page(style="padding-top: 5px; padding-bottom: 5px;")
+        h1.logo(style="font-family:Pacifico;") Nashtaag
+        a.btn-navbar(data-toggle="collapse", data-target=".nav-collapse")
+            i.icon-reorder
+        div.nav-collapse.collapse
+            include navigation
