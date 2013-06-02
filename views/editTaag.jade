@@ -12,23 +12,15 @@ block scripts
                 text: 'http://www.nashtaag.com/qrcode'});
 
             $("#btnsave").click(function(){
-                var typeparam = $("#type").val();
-                var codeparam = $("#code").val();
-                var titleparam = $("#title").val();
-                var description = $("#description").val();
-                var id = $("#id").val();
-                var json = JSON.stringify({ type: typeparam, code: codeparam, title:titleparam, description:description, id: id});
                 $.ajax({
                     type: "POST",
                     url: "/taag/saveTaag",
-                    data: json,
-                    dataType: "json",
-                    contentType: 'application/json',
+                    data: $("form").serialize(),
                     success: function() { 
                         alert('success'); 
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        alert('Error: ' + errorThrown + ", Status: " + textStatus);
+                        //alert('Error: ' + errorThrown + ", Status: " + textStatus);
                     }
                 }).done(function() {
                     alert("Done");
@@ -38,23 +30,32 @@ block scripts
 
 block content
     h1=title
-    #editForm
+    form
         .editItem
             label="Type: "
-            select(id='type')
+            select(id='type', name='taag[type]')
                 option(value="Point Of Interest")="Point of Interest"
                 option(value="Location")="Location"
                 option(value="Service")="Service"
         .editItem
             label="Code: "
-            input(type='text', id='code')
+            input(type='text', id='code', name='taag[code]')
         .editItem
             label="Title: "
-            input(type='text', id='title')
+            input(type='text', id='title', name='taag[title]')
         .editItem
             label="Decription: "
-            input(type='text', id='description')
-        input(type='hidden', id='id')
+            input(type='text', id='description', name='taag[description]')
+        input(type='hidden', id='id', name='taag[id]')
+
+        h3 Media
+
+        .editItem
+            label="Type: "
+            select(id='media_type', name='media[type]')
+                option(value="Image")="Image"
+                option(value="Video")="Video"
+                option(value="Link")="Link"
 
     div#taagPreview
 

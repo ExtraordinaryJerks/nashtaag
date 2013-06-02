@@ -26,14 +26,10 @@ TaagRoute.prototype = {
 
 	saveTaag: function(req, res){
      var isNew = false;
-     if(req.body.id == '')
+     if(req.body.taag.id == '')
       {isNew = true;}
 
-       var newTaag = new Taag();
-       newTaag.Type =req.body.type;
-       newTaag.Code = req.body.code;
-       newTaag.Title = req.body.title;
-       newTaag.Description = req.body.description; 
+      var newTaag = new Taag(req.body.taag);
       
       if(isNew){
           newTaag.save(function(err,createdTaag){
