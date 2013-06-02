@@ -9,10 +9,14 @@ function TaagRoute(connection){
 
 TaagRoute.prototype = {
 	showTaags: function(req, res){
-    	task.find({itemCompleted: false}, function foundTaags(err, items) 
-    	{
-      		res.render('index',{title: 'Nashville Taags ', taags: items})
-    	});
+    	Taag.find({},function(err,theReturnedTaags){
+        if(err){
+          res.writeHead(500,err.message);
+          res.end();
+        }else{
+          res.render('showTaags',{title:'Taag Listing',theTaags:theReturnedTaags});
+        }
+      });
 	},
 
 	showTaag: function(req, res){
