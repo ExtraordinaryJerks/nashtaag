@@ -111,7 +111,9 @@ TaagRoute.prototype = {
   },
 
   addIssue: function(req,res){
+    console.log("Hello");
     Taag.findOne({code:req.body.code},function(err,returnedTaag){
+      console.log(req.body.issueTitle);
       if(err){
         res.writeHead(500,err.message);
         res.end();

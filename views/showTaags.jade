@@ -23,9 +23,9 @@ block content
                             if taag.code != null
                                 tr
                                     td 
-                                        a.color-4(href='/' + taag.code) #{taag.title}
+                                        a.color-4(href='/' + taag.code, style="background:transparent; color: #000") #{taag.title}
                                     td 
-                                        span.color-4= taag.type
+                                        span.color-4(style="background:transparent; color: #000")= taag.type
 
     else
         .inner-page

@@ -60,16 +60,6 @@ block scripts
                 self.type = ko.observable();
                 self.url = ko.observable();
                 self.image = ko.observable();
-
-                this.type.subscribe(function(newValue) {
-                    if (newValue === "Image") {
-                        $(".image-column").show();
-                        $(".url-column").hide();
-                    }else{
-                        $(".image-column").hide();
-                        $(".url-column").show();
-                    }
-                }, this);
             }
 
 
@@ -116,14 +106,6 @@ block scripts
                 }
             };
 
-            function SelectChange(element){
-                
-
-                $(element).change(function(){
-                    alert($(element))
-                });
-            }
-
             var viewModel = new TaagViewModel();
             ko.applyBindings(viewModel);
         });        
@@ -168,10 +150,10 @@ block content
                                     input(type="file", data-bind="value: image", placeholder="image")
                                 td
                                     a(href="#", onclick="return false;", data-bind="click: $root.removeMedia")="Remove"
+            .buttons               
+                button(class='btn', data-bind="click: addMedia", style="display: inline-block; margin-right: 10px;")="Add Media"
+                button(id="btnsave", class='btn', style="display: inline-block")="Save Taag"
 
-                    button(class='btn', data-bind="click: addMedia")="Add Media"
-
-            button(id="btnsave", class='btn', href='#btnSave')="Save"
         .span3#taagPreviewContainer
             #taagPreviewLabelContainer
                 label(style="display:none")="QR Code"
