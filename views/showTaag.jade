@@ -101,9 +101,12 @@ block content
                 .row
                     h2.title.color-4(style="background:transparent; color: #FFF") Videos
                 .row
-                    each vid , i in videos
+                    //each vid , i in videos
+                    //    unless vid == null
+                    //         div.flex-video.widescreen
+                    for vid in videos
                         unless vid == null
-                             div.flex-video.widescreen
+                            div.flex-video.widescreen
                                 iframe(src="https://www.youtube-nocookie.com/embed/" + vid.videoId, frameborder="0", allowfullscreen="")
         .row-fluid
             .span5.offset2

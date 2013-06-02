@@ -145,7 +145,7 @@ block content
                         tbody(data-bind="foreach: medias")
                             tr
                                 td
-                                    select(data-bind="selectChanged: type")
+                                    select(data-bind="value: type, selectChanged: type")
                                         option(value="Image")="Image"
                                         option(value="Video")="Video"
                                         option(value="Link")="Link"

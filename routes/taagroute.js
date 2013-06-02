@@ -25,8 +25,10 @@ TaagRoute.prototype = {
     {
       if(item){
         var videoItems = item.medias.filter(function(element,index,array){
+          console.log(array);
           return (element.type == 'Video');
         });
+        console.log(videoItems);
         var linkItems = item.medias.filter(function(element,index,array){
           return(element.type =='Link');
         });

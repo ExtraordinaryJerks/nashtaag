@@ -3,6 +3,7 @@ var mongoose = require('mongoose')
 
 var MediaSchema = new Schema({
     type : String,
+    title : String,
     url : String,
     image : String
 });
