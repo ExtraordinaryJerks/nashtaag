@@ -1,14 +1,30 @@
 extends layout
 
+block scripts
+    script(type="text/javascript")
+        $(function(){
+            $('table').dataTable();
+        });
+
 block content
     // Check and see if taag is populated 
-    unless theTaags == null 
-        h2.color-4 The Taags
-        ul
-            each taag in theTaags
-                if taag.code != null
-                    li 
-                        a.color-4(href='/taag/editTaag/' + taag.code) #{taag.title}
+    unless theTaags == null
+        .inner-page
+            .row-fluid.span8
+                h2.color-4 The Taags
+                table
+                    thead
+                        tr
+                            th="Code"
+                            th="Type"
+                    tbody
+                        each taag in theTaags
+                            if taag.code != null
+                                tr
+                                    td 
+                                        a.color-4(href='/taag/editTaag/' + taag.code) #{taag.title}
+                                    td=taag.type
 
     else
-        h2.color-4 Sorry, No Taags Found
+        .inner-page
+            h2.color-4 Sorry, No Taags Found
