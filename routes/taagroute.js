@@ -52,45 +52,55 @@ TaagRoute.prototype = {
 	saveTaag: function(req, res){
     var isNew = false;
     var theId;
-    if(req.body.taag.id == '' || req.body.taag.id == 'undefined'){
+    if(req.body.taag.id == '' || req.body.taag.id == 'undefined' || req.body.taag.id == null){
       isNew = true;theId = null;
     }else{
       theId = req.body.taag.id;
     }
-    var newTaag = new Taag(req.body.taag);
-
-    var idObject = require('mongoose').Types.ObjectId;
-    Taag.findById(new idObject(theId),
-    function(err,foundTaag){
-      if(err){
-          res.writeHead(500,err.message);
-          res.end();
-      }else{
-          if(foundTaag){
-              Taag.update({_id:new idObject(theId)},
-                    newTaag,
-                    function(err,updatedTaag){
-                      res.writeHead(200, { 'Content-Type': 'application/json' });
-                      res.write(JSON.stringify({isSuccessful:true,code:updatedTaag.code}));
-                      res.end();
-                    });
-          }else{
-              newTaag.save(
-                function(err,createdTaag){
-                  if (err){
-                    console.log("error after save.");
-                    console.log(err);
-                    console.log(req.body.taag);
-                    console.log(newTaag);
-                    res.writeHead(500,err.message);
-                    res.end();
-                  }
-                  res.writeHead(200, { 'Content-Type': 'application/json' });
-                  res.write(JSON.stringify({isSuccessful:true,code:createdTaag.code}));
-                  res.end();
-              });
-          }
+    Taag.findOne({code:req.body.taag.code.toLowerCase()},function(err, item) 
+    {
+      if (item != null && isNew){
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify({ isSuccessful:false, code:req.body.taag.code, message:"The the code " + req.body.taag.code + " is already in use. Please use another." }));
+        res.end();
+        return;
       }
+      var newTaag = new Taag(req.body.taag);
+      var idObject = require('mongoose').Types.ObjectId;
+      Taag.findById(new idObject(theId),
+      function(err,foundTaag){
+        if(err){
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.write(JSON.stringify({isSuccessful:false,message:err.message}));
+            res.end();
+            return;
+        }else{
+            if(foundTaag){
+                Taag.update({_id:new idObject(theId)},
+                      newTaag,
+                      function(err,updatedTaag){
+                        res.writeHead(200, { 'Content-Type': 'application/json' });
+                        res.write(JSON.stringify({isSuccessful:true,code:updatedTaag.code}));
+                        res.end();
+                        return;
+                      });
+            }else{
+                newTaag.save(
+                  function(err,createdTaag){
+                    if (err){
+                      res.writeHead(200, { 'Content-Type': 'application/json' });
+                      res.write(JSON.stringify({isSuccessful:false,message:err.message}));
+                      res.end();
+                      return;
+                    }
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.write(JSON.stringify({isSuccessful:true,code:createdTaag.code}));
+                    res.end();
+                    return;
+                });
+            }
+        }
+      });
     });
 	},
 

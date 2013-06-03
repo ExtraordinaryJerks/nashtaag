@@ -1,4 +1,9 @@
 extends layout
+block style
+    style
+        .media-element{
+            padding: 3px;
+        }
 
 block scripts
     script(src="/javascripts/qrcode.js")
@@ -30,10 +35,12 @@ block scripts
                     success: function(data) { 
                         //alert('success'); 
                         if (data.isSuccessful){
-                            //window.location("/" + data.code);
                             window.location.href = "/" + data.code;
                         } else {
-                            alert("Error, no code returned.");
+                            if (data.message.length > 0){
+                                $("#Error").show();
+                                $("#Message").text(data.message);
+                            }
                         }
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -67,51 +74,24 @@ block scripts
                 self.title = ko.observable();
                 self.url = ko.observable();
                 self.image = ko.observable();
+
+                self.onTypeChange = function(model, event){
+                    var parent = $(event.target).parent().parent();
+                    if (self.type() === "Image") {
+                        $(".image-column", parent).show();
+                        $(".url-column", parent).hide();
+                        $(".title-column", parent).hide();
+                    } if (self.type() === "Video") {
+                        $(".image-column", parent).hide();
+                        $(".url-column", parent).show();
+                        $(".title-column", parent).show();
+                    } if (self.type() === "Link") {
+                        $(".image-column", parent).hide();
+                        $(".url-column", parent).show();
+                        $(".title-column", parent).hide();
+                    }
+                };
             }
-
-
-            ko.bindingHandlers.selectChanged = {
-                init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-                    if ($(element).val() === "Image") {
-                            $(element).parent().parent().find(".image-column").show();
-                            $(element).parent().parent().find(".url-column").hide();
-                            $(element).parent().parent().find(".title-column").hide();
-                        }else
-                        if ($(element).val() === "Video") {
-                            $(element).parent().parent().find(".image-column").hide();
-                            $(element).parent().parent().find(".url-column").show();
-                            $(element).parent().parent().find(".title-column").show();
-                        }else
-                        {
-                            $(element).parent().parent().find(".image-column").hide();
-                            $(element).parent().parent().find(".url-column").show();
-                            $(element).parent().parent().find(".title-column").hide();
-                        }
-                },
-                update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-                    $(element).change(function(){
-
-                        //alert("Hello");
-
-                        if ($(this).val() === "Image") {
-                            $(this).parent().parent().find(".image-column").show();
-                            $(this).parent().parent().find(".url-column").hide();
-                            $(this).parent().parent().find(".title-column").hide();
-                        }else
-                        if ($(this).val() === "Video") {
-                            $(this).parent().parent().find(".image-column").hide();
-                            $(this).parent().parent().find(".url-column").show();
-                            $(this).parent().parent().find(".title-column").show();
-                        }else
-                        {
-                            $(this).parent().parent().find(".image-column").hide();
-                            $(this).parent().parent().find(".url-column").show();
-                            $(this).parent().parent().find(".title-column").hide();
-                        }
-
-                    });
-                }
-            };
 
             var viewModel = new TaagViewModel();
             ko.applyBindings(viewModel);
@@ -141,25 +121,27 @@ block content
 
                 h3 Media
                 .editItem
-                    table
-                        tbody(data-bind="foreach: medias")
-                            tr
-                                td
-                                    select(data-bind="value: type, selectChanged: type")
-                                        option(value="Image")="Image"
-                                        option(value="Video")="Video"
-                                        option(value="Link")="Link"
-                                td(class="url-column")
-                                    input(data-bind="value: url", placeholder="url")
-                                td(class="title-column")
-                                    input(data-bind="value: title", placeholder="title")
-                                td(class="image-column")
-                                    input(type="file", data-bind="value: image", placeholder="image")
-                                td
-                                    a(href="#", onclick="return false;", data-bind="click: $root.removeMedia")="Remove"
+                    div(data-bind="foreach: medias")
+                        div(style="white-space:nowrap; ")
+                            div(style="display:inline-block;", class="media-element")
+                                select(data-bind="value: type, event : { change: onTypeChange }")
+                                    option(value="Image")="Image"
+                                    option(value="Video")="Video"
+                                    option(value="Link")="Link"
+                            span(class="url-column media-element")
+                                input(data-bind="value: url", placeholder="url")
+                            span(class="title-column media-element")
+                                input(data-bind="value: title", placeholder="title")
+                            span(class="image-column media-element")
+                                input(type="file", data-bind="value: image", placeholder="image")
+                            span(style="media-element")
+                                a(href="#", onclick="return false;", data-bind="click: $root.removeMedia")="Remove"
+
             .buttons               
                 button(class='btn', data-bind="click: addMedia", style="display: inline-block; margin-right: 10px;")="Add Media"
                 button(id="btnsave", class='btn', style="display: inline-block")="Save Taag"
+            div#Error(style="border:1px solid red; background-color: #D9D9D9; margin:10px; padding:10px; display:none;")
+                span#Message(style="color:red;")
 
         .span3#taagPreviewContainer
             #taagPreviewLabelContainer
