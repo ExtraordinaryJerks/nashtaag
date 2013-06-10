@@ -1,0 +1,2 @@
+{"ts":1370899173276,"silentsave":true,"restoring":false,"patch":[[{"diffs":[[1,"var mongoose = require('mongoose')\n\t, Schema = mongoose.Schema;\n\nvar IssueSchema = new Schema({\n\t  title : String\n\t, description: String\n});\n\nmodule.exports = mongoose.model('IssueModel', IssueSchema);"]],"start1":0,"start2":0,"length1":0,"length2":201}]],"length":201}
+{"contributors":[],"silentsave":false,"ts":1370899203483,"patch":[[{"diffs":[[0,"ssue"],[-1,"Model"],[0,"', I"]],"start1":176,"start2":176,"length1":13,"length2":8}]],"length":196,"saved":false}
