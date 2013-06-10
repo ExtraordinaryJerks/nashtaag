@@ -7,17 +7,14 @@ var express = require('express')
   , user = require('./routes/user')
   , http = require('http')
   , path = require('path')
-  , mongoose = require('mongoose');
-
+  , TaagRoute = new require('./routes/taagroute')
+  , ModelContext = require('./domain/modelcontext.js');
+  
 var app = express();
 
 var mongoConnectionString = 'mongodb://nashtaag-demo:qYukGKevuazH9QexMwuBWHMD4oFe7NtLAuUQIoEaoyA-@ds045077.mongolab.com:45077/nashtaag-demo';
-mongoose.connect(mongoConnectionString);
-mongoose.model('Issue', require('./models/issue.js').Issue);
-mongoose.model('Media', require('./models/media.js').Media);
-mongoose.model('Taag', require('./models/taag.js').Taag);
+new ModelContext(mongoConnectionString);
 
-var TaagRoute = new require('./routes/taagroute');
 var taagRoute = new TaagRoute();
 
 // all environments
