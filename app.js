@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -7,14 +6,19 @@ var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , mongoose = require('mongoose');
 
 var app = express();
 
 var mongoConnectionString = 'mongodb://nashtaag-demo:qYukGKevuazH9QexMwuBWHMD4oFe7NtLAuUQIoEaoyA-@ds045077.mongolab.com:45077/nashtaag-demo';
+mongoose.connect(mongoConnectionString);
+mongoose.model('Issue', require('./models/issue.js').Issue);
+mongoose.model('Media', require('./models/media.js').Media);
+mongoose.model('Taag', require('./models/taag.js').Taag);
 
 var TaagRoute = new require('./routes/taagroute');
-var taagRoute = new TaagRoute(mongoConnectionString);
+var taagRoute = new TaagRoute();
 
 // all environments
 app.set('port', process.env.PORT || 3000);

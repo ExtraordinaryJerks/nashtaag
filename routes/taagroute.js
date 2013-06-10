@@ -1,16 +1,18 @@
-var Issue = require('../models/issue.js');
-var Media = require('../models/media.js');
-var Taag = require('../models/taag.js');
-var mongo = require('mongoose');
+var Code = require('../domain/codes.js');
+
+var mongoose = require('mongoose');
+var Issue = mongoose.model('Issue');
+var Media = mongoose.model('Media');
+var Taag = mongoose.model('Taag');
+
 module.exports = TaagRoute;
 
-function TaagRoute(connectionString){
-	mongo.connect(connectionString);
+function TaagRoute(){
 }
 
 TaagRoute.prototype = {
 	showTaags: function(req, res){
-    	Taag.find({},function(err,theReturnedTaags){
+        Taag.find({},function(err,theReturnedTaags){
         if(err){
           res.writeHead(500,err.message);
           res.end();

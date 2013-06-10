@@ -6,4 +6,4 @@ var IssueSchema = new Schema({
 	, description: String
 });
 
-module.exports = mongoose.model('IssueModel', IssueSchema);
+module.exports = mongoose.model('Issue', IssueSchema);
