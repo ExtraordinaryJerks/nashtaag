@@ -4,8 +4,8 @@ var Taag = require('../models/taag.js');
 var mongo = require('mongoose');
 module.exports = TaagRoute;
 
-function TaagRoute(connection){
-	mongo.connect(connection);
+function TaagRoute(connectionString){
+	mongo.connect(connectionString);
 }
 
 TaagRoute.prototype = {
