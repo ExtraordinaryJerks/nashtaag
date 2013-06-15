@@ -1,0 +1,49 @@
+div
+    script(type="text/javascript").
+        $(document).ready(function(){
+            $("#btnsave").click(function(){
+                var taagId = $("#taagId").val();
+                var description = $("#description").val();
+                var title = $("#title").val();
+                var json = JSON.stringify({taagId: taagId, description: description, issueTitle: title});
+                //alert(json);
+                $.ajax({
+                    type: "POST",
+                    url: "/issue/save",
+                    data: json,
+                    dataType: "json",
+                    contentType: 'application/json',
+                    success: function() { 
+                        $(".issue-dialog").dialog('close');
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        $("#description").val("");
+                        $("#title").val("")
+                    }
+                }).done(function() {
+                    //alert("Done");
+                });
+
+            });
+
+            function IssueViewModel(){
+                var self = this;
+
+                self.taagId = ko.observable("");
+                self.issueTitle = ko.observable("");
+                self.description = ko.observable("");
+            }
+
+            var issueViewModel = new IssueViewModel();
+            ko.applyBindings(issueViewModel);
+        })
+
+    .row
+        input#taagId(type="hidden", value="#{taagId}")
+        div(style="display:inline-block")
+            div
+                input#title(placeholder="title", data-bind="value: issueTitle")
+            div
+                input#description(placeholder="description", data-bind="value: description")
+            div
+                button(id="btnsave", class='btn', style="display: inline-block")="Save Issue"

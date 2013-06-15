@@ -1,6 +1,6 @@
 extends layout
 block style
-    style
+    style.
         .media-element{
             padding: 3px;
         }
@@ -8,7 +8,7 @@ block style
 block scripts
     script(src="/javascripts/qrcode.js")
     script(src="/javascripts/jquery.qrcode.js")
-    script(type="text/javascript")
+    script(type="text/javascript").
         $(document).ready(function(){
              $("#code").change(function(event){
                 var url = 'http://www.nashtaag.com/' + $("#code").val();
@@ -147,4 +147,3 @@ block content
             #taagPreviewLabelContainer
                 label(style="display:none")="QR Code"
             div#taagPreview
-    div(style="height: 100px")

@@ -1,52 +1,47 @@
 extends layout
 
+block headerlogo
+    a(href='/')
+        h1.logo(style="font-family:Pacifico; margin-top: 0; padding-top: 0px;") Nashtaag 
+block issuelink
+    a.report-issue(href='#', style='color: #FF8900') Report Issue
 block content
-    script(type="text/javascript")
+    script(type="text/javascript").
         $(document).ready(function(){
-            $("#btnsave").click(function(){
-                    alert(JSON.stringify(issueViewModel));
+            $("a.report-issue").on('click', function(){
+                var taagId = $(".taagId").val();
+                var taag = {taagId: taagId}; 
+                var json = JSON.stringify(taag);
+                var dialog;
+                $.ajax({
+                    type: "POST",
+                    url: "/issue/add",
+                    data: json,
+                    contentType: 'application/json',
+                    success: function(data) { 
+                        $(".issue-dialog").html(data);
+                        $(".issue-dialog").dialog({
+                            autoOpen:   false,
+                            draggable:  false,
+                            resizable:  false,
+                            show:       'fade',
+                            hide:       'fade',
+                            title:      'Report Issue'
+                        });
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        alert('Error: ' + errorThrown + ", Status: " + textStatus);
+                    }
+                }).done(function() {
+                    $(".issue-dialog").dialog('open');
+                });
 
-
-                    var code = $("#code").val();
-                    var description = $("#description").val();
-                    var title = $("#title").val();
-                    var json = JSON.stringify({code: code, description: description, issueTitle: title});
-
-                    alert(json);
-
-                    $.ajax({
-                        type: "POST",
-                        url: "/taag/addIssue",
-                        data: json,
-                        dataType: "json",
-                        contentType: 'application/json',
-                        success: function() { 
-                            alert('success'); 
-                        },
-                        error: function(XMLHttpRequest, textStatus, errorThrown) {
-                            $("#description").val("");
-                            $("#title").val("")
-                        }
-                    }).done(function() {
-                        alert("Done");
-                    });
-
+                return false;
             });
-
-            function IssueViewModel(){
-                var self = this;
-
-                self.code = ko.observable("");
-                self.issueTitle = ko.observable("");
-                self.description = ko.observable("");
-            }
-
-            var issueViewModel = new IssueViewModel();
-            ko.applyBindings(issueViewModel);
         });
 
 
-    style(type="text/css")
+    style(type="text/css").
         .flex-video {
           position: relative;
           padding-top: 25px;
@@ -74,6 +69,7 @@ block content
 
     // Check and see if taag is populated 
     unless taag == null 
+        input.taagId(type="hidden", value="#{taag._id}")
         .row-fluid
             .span5.offset2
                 h2.title.color-4(style="background:transparent; color: #FFF") #{taag.title}
@@ -108,26 +104,9 @@ block content
                         unless vid == null
                             div.flex-video.widescreen
                                 iframe(src="https://www.youtube-nocookie.com/embed/" + vid.videoId, frameborder="0", allowfullscreen="")
-        .row-fluid
-            .span5.offset2
-                .row
-                    h2.title.color-4(style="background:transparent; color: #FFF") Report Issues
-                .row
-                    form#issue_form
-                        .editItem
-                            table
-                                tbody
-                                    tr
-                                        td(class="title-column")
-                                            input#code(type="hidden", value="#{taag.code}")
-                                            input#title(placeholder="title")
-                                        td(class="description-column")
-                                            input#description(placeholder="description", data-bind="value: description")
-                    button(id="btnsave", class='btn', style="display: inline-block")="Save Issue"
+        .issue-dialog
     else
         h2.color-4 Sorry, No Taag Found
-
-    div(style="height: 100px")
 
 
 

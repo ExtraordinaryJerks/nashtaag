@@ -8,7 +8,8 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , TaagRoute = new require('./routes/taagroute')
-  , ModelContext = require('./domain/modelcontext.js');
+  , ModelContext = require('./domain/modelcontext.js')
+  , IssueRoute = new require('./routes/issueroute');
   
 var app = express();
 
@@ -16,6 +17,7 @@ var mongoConnectionString = 'mongodb://nashtaag-demo:qYukGKevuazH9QexMwuBWHMD4oF
 new ModelContext(mongoConnectionString);
 
 var taagRoute = new TaagRoute();
+var issueRoute = new IssueRoute();
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -40,6 +42,8 @@ app.post('/taag/saveTaag',taagRoute.saveTaag.bind(taagRoute));
 app.post('/taag/getCode',taagRoute.getCode.bind(taagRoute));
 app.get('/taag/showTaags',taagRoute.showTaags.bind(taagRoute));
 app.post('/taag/addIssue',taagRoute.addIssue.bind(taagRoute));
+app.post('/issue/add',issueRoute.addIssue.bind(issueRoute));
+app.post('/issue/save',issueRoute.saveIssue.bind(issueRoute));
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
